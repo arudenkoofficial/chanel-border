@@ -3,6 +3,7 @@ import './App.css';
 import ImageUploading from 'react-images-uploading';
 import base from './base.png';
 import disclaimer from './disclaimer.svg';
+import {saveAs} from 'file-saver';
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -176,9 +177,9 @@ const Result = ({
     }, []);
 
     const handleDownloadClick = () => {
-        const image = canvasRef.current.toDataURL("image/png").replace("image/png", "image/octet-stream");
-
-        window.location.href=image;
+        canvasRef.current.toBlob((blob) => {
+          saveAs(blob, "camelia.png");
+      });
     }
 
     return (
